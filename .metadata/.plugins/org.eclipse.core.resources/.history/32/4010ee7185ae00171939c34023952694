@@ -1,0 +1,26 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class GCATest {
+
+	@Test
+	public void testContains(){
+		GCA<Integer, Integer> bst = new GCA<Integer, Integer>();
+		assertEquals("Checking getting contains on empty tree", false, bst.contains(null));
+		
+		bst.put(7, 7);   	//        _7_
+		bst.put(8, 8);   	//      /     \
+		bst.put(3, 3);   	//    _3_      8
+		bst.put(1, 1);   	//  /     \
+		bst.put(2, 2);   	// 1       6
+		bst.put(6, 6);   	//  \     /
+		bst.put(4, 4);   	//   2   4
+		bst.put(5, 5);   	//        \
+		bst.put(9, null);	//         5
+		bst.put(6,6);
+
+		assertSame("Checking getting median of non-empty tree", false, bst.contains(10)); 
+	}
+
+}
