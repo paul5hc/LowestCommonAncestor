@@ -41,22 +41,5 @@ public class LCATest {
 
 		assertEquals("Checking height of non-empty tree", 3, bst.height());
 	}
-	
-	@Test
-	public void testLowestCommonAncestor(){
-		LCA<Integer, Integer> bst = new LCA<Integer, Integer>();
-		
-		bst.put(7, 7);   	//        _7_
-		bst.put(8, 8);   	//      /     \
-		bst.put(3, 3);   	//    _3_      8
-		bst.put(1, 1);   	//  /     \     
-		bst.put(2, 2);   	// 1       6     
-		bst.put(6, 6);   	//  \     /
-		bst.put(4, 4);   	//   2   4
-		bst.put(5, 5);   	//        \
-		                	//         5
-
-		assertSame("Checking lowest common ancestor of two Keys", 7, bst.lowestCommonAncestor(bst.root, 7, 8)); 
-	}
 
 }

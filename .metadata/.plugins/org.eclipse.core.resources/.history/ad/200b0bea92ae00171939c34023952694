@@ -2,7 +2,7 @@ import java.util.NoSuchElementException;
 
 public class LCA <Key extends Comparable<Key>, Value> {
 
-	public Node root;             				// root of BST
+	private Node root;             				// root of BST
 
 	private class Node {
 		private Key key;           				// sorted by key
@@ -149,7 +149,7 @@ public class LCA <Key extends Comparable<Key>, Value> {
 	} 
 	
 	// Help Source: www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree
-	public Key lowestCommonAncestor (Node node, Key key1, Key key2){
+	private Node lowestCommonAncestor (Node node, Key key1, Key key2){
 		if (node == null)
             return null;
 		int cmp1 = node.key.compareTo(key1);
@@ -161,6 +161,6 @@ public class LCA <Key extends Comparable<Key>, Value> {
         if (cmp1 < 0 && cmp2 < 0)
             return lowestCommonAncestor(node.right, key1, key2);
   
-        return node.key;
+        return node;
 	}
 }

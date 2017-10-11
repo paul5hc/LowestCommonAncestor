@@ -56,7 +56,8 @@ public class LCATest {
 		bst.put(5, 5);   	//        \
 		                	//         5
 
-		assertSame("Checking lowest common ancestor of two Keys", 7, bst.lowestCommonAncestor(bst.root, 7, 8)); 
+
+		assertEquals("Checking lowest common ancestor of two Keys", 7, bst.lowestCommonAncestor(bst.root, 1, 5)); 
 	}
 
 }
