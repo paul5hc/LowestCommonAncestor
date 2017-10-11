@@ -148,7 +148,6 @@ public class LCA <Key extends Comparable<Key>, Value> {
 		else                 return max(x.right); 
 	} 
 	
-	// Help Source: www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree
 	private Node lowestCommonAncestor (Node node, Key key1, Key key2){
 		if (node == null)
             return null;
@@ -162,5 +161,7 @@ public class LCA <Key extends Comparable<Key>, Value> {
             return lowestCommonAncestor(node.right, key1, key2);
   
         return node;
+		
+		return root;
 	}
 }
