@@ -71,7 +71,7 @@ public class LCA <Key extends Comparable<Key>, Value> {
 		return x;
 	}
 
-	// Returns the number of links from the root to the deepest leaf.
+	// Returns the number of branches from the root to the deepest leaf.
 	// For an empty tree this should return -1.
 	// For a tree with only one node it should return 0.
 	public int height() 
@@ -148,6 +148,7 @@ public class LCA <Key extends Comparable<Key>, Value> {
 		else                 return max(x.right); 
 	} 
 	
+	// Finds the lowest common ancestor of two keys in the tree
 	// Help Source: www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree
 	public Key lowestCommonAncestor (Node node, Key key1, Key key2){
 		if (node == null || contains(key1) == false || contains(key2) == false)

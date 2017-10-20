@@ -7,7 +7,7 @@ public class LCATest {
 	@Test
 	public void testContains(){
 		LCA<Integer, Integer> bst = new LCA<Integer, Integer>();
-		assertEquals("Checking getting contains on empty tree", false, bst.contains(null));
+		assertEquals("Checking contains() on empty tree", false, bst.contains(5));
 		
 		bst.put(7, 7);   	//        _7_
 		bst.put(8, 8);   	//      /     \
@@ -20,7 +20,7 @@ public class LCATest {
 		                	//         5
 
 
-		assertSame("Checking getting median of non-empty tree", true, bst.contains(6)); 
+		assertSame("Checking contains() on a non-empty tree", true, bst.contains(6)); 
 	}
 	
 	@Test
@@ -45,8 +45,9 @@ public class LCATest {
 	@Test
 	public void testLowestCommonAncestor(){
 		LCA<Integer, Integer> bst = new LCA<Integer, Integer>();
+		assertSame("Checking lowest common ancestor of an empty tree", null, bst.lowestCommonAncestor(bst.root, 7, 8)); 
 		
-		bst.put(7, 7);   	//        _7_
+		bst.put(7, 7); 		//        _7_
 		bst.put(8, 8);   	//      /     \
 		bst.put(3, 3);   	//    _3_      8
 		bst.put(1, 1);   	//  /     \     
@@ -56,7 +57,10 @@ public class LCATest {
 		bst.put(5, 5);   	//        \
 		                	//         5
 
+		assertSame("Checking lowest common ancestor of tree that doesn't contain one of the keys", null, bst.lowestCommonAncestor(bst.root, 7, 9)); 
+		assertSame("Checking lowest common ancestor of tree that doesn't contain both of the keys", null, bst.lowestCommonAncestor(bst.root, -5, 9)); 
 		assertSame("Checking lowest common ancestor of two Keys", 7, bst.lowestCommonAncestor(bst.root, 7, 8)); 
+		assertSame("Checking lowest common ancestor of two Keys", 3, bst.lowestCommonAncestor(bst.root, 6, 2)); 
 	}
 
 }
