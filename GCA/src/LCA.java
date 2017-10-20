@@ -1,3 +1,5 @@
+// Using code from BST project in 2nd Year (Algorithms & Data Structures)
+
 import java.util.NoSuchElementException;
 
 public class LCA <Key extends Comparable<Key>, Value> {
