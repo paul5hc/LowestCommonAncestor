@@ -40,27 +40,27 @@ public class DAG <Value> {
 		}
 	}
 	
-	// Lots of code repetition. Need to make a new function for Array Copy.
+	// Adds a node to the graph. No precaution for cycles yet.
 	public void put(Node n, Node from, Node to) {	
 		if (from.val != null) {
-			Node[] newFrom = new DAG.Node[from.successors.length+1];
-			System.arraycopy(from.successors, 0, newFrom, 0, from.successors.length);
-			newFrom[newFrom.length-1] = n;
-			from.successors = newFrom;
+			from.successors = extendArrayByOne(from.successors);
+			from.successors[from.successors.length-1] = n;
 		}
 		
 		if (to.val != null) {
-			Node[] newTo = new DAG.Node[n.successors.length+1];
-			System.arraycopy(n.successors, 0, newTo, 0, n.successors.length);
-			newTo[newTo.length-1] = to;
-			to.successors = newTo;
+			n.successors = extendArrayByOne(n.successors);
+			n.successors[n.successors.length-1] = to;
 		}
 		
-		Node[] newNodeList = new DAG.Node[nodeList.length+1];
-		System.arraycopy(nodeList, 0, newNodeList, 0, nodeList.length);
-		newNodeList[newNodeList.length-1] = n;
-		nodeList = newNodeList;
-		
+		nodeList = extendArrayByOne(nodeList);
+		nodeList[nodeList.length-1] = n;		
+	}
+	
+	// Extends an array by one element.
+	public Node[] extendArrayByOne (Node[] originalArray) {
+		Node[] arrayCopy = new DAG.Node[originalArray.length+1];
+		System.arraycopy(originalArray, 0, arrayCopy, 0, originalArray.length);
+		return arrayCopy;
 	}
 	
 	
