@@ -63,4 +63,20 @@ public class LCATest {
 		assertSame("Checking lowest common ancestor of two Keys", 3, bst.lowestCommonAncestor(bst.root, 6, 2)); 
 	}
 
+/*__________________________________________________________________________________________________________________________*/
+	
+	// Problems:
+	// Values for 'from' and 'to' must be in Value form, not Node - put() will have to be changed. 
+	// Deleting Nodes will need to actually remove element from the array, rather than replace them with null.
+	// Need to find a way of connecting Values to their corresponding Nodes to use in the put() function.
+	@Test
+	public void testDAGContains(){
+		DAG<Integer> dag = new DAG <Integer>();
+		
+		assertEquals("Checking contains() on empty dag", false, dag.contains(10));
+		
+		dag.put(7, null, null); 		//        (7)
+		assertEquals("Checking contains() on empty dag", true, dag.contains(7));
+	}
+
 }
