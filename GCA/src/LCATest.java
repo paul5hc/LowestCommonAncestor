@@ -73,10 +73,13 @@ public class LCATest {
 	public void testDAGContains(){
 		DAG<Integer> dag = new DAG <Integer>();
 		
-		assertEquals("Checking contains() on empty dag", false, dag.contains(10));
+		assertEquals("Checking contains() on empty dag.", false, dag.contains(10));
 		
 		dag.put(7, null, null); 		//        (7)
-		assertEquals("Checking contains() on empty dag", true, dag.contains(7));
+		dag.put(8, 7, 10);   			//   	  (7) -> (8) -> (10)
+		
+		//assertEquals("Checking DAG contains() a particular Value.", true, dag.contains(7));
+		
 	}
 
 }

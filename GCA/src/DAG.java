@@ -7,8 +7,6 @@
 import java.util.Arrays;
 
 public class DAG <Value> {
-	private Node[] nodeList = new DAG.Node[0];					// Keeps track of the nodes in the list
-	
 	private class Node {
 		private Value val;					// Value stored in Node
 		private Node[] successors;			// Array of Nodes' successors
@@ -17,6 +15,7 @@ public class DAG <Value> {
 			this.val = val;
 		}
 	}
+	private Node[] nodeList = new DAG.Node[0];					// Keeps track of the nodes in the list
 	
 	// Is the DAG empty?
 	public boolean isEmpty() { 
@@ -46,27 +45,41 @@ public class DAG <Value> {
 	}
 	
 	// Adds a node to the graph. No precaution for cycles yet.
-	public void put(Value v, Node from, Node to) {	
+	public void put(Value v, Value fromVal, Value toVal) {	
 		Node n = new Node(v);
-		if (from != null) {
+		Node from = retrieveNodefromVal(fromVal);
+		Node to = retrieveNodefromVal(toVal);
+		
+		if (fromVal != null) {
 			from.successors = extendArrayByOne(from.successors);
 			from.successors[from.successors.length-1] = n;
+			// If 'from' Node is not already in the graph.
+			if (from.val == null) {
+				addNodeToNodeList(from);
+			}
 		}
 		
-		if (to != null) {
+		if (toVal != null) {
 			n.successors = extendArrayByOne(n.successors);
 			n.successors[n.successors.length-1] = to;
+			// If 'to' Node is not already in the graph.
+			if (to.val == null) {
+				addNodeToNodeList(to);
+			}
 		}
-		
+		addNodeToNodeList(n);		
+	}
+	
+	public void addNodeToNodeList (Node n) {
 		nodeList = extendArrayByOne(nodeList);
-		nodeList[nodeList.length-1] = n;		
+		nodeList[nodeList.length-1] = n;
 	}
 	
 	// Extends an array by one element.
 	public Node[] extendArrayByOne(Node[] originalArray) {
-		Node[] arrayCopy = new DAG.Node[originalArray.length+1];
-		System.arraycopy(originalArray, 0, arrayCopy, 0, originalArray.length);
-		return arrayCopy;
+		Node[] copyArray = new DAG.Node[originalArray.length+1];
+		System.arraycopy(originalArray, 0, copyArray, 0, originalArray.length);
+		return copyArray;
 	}
 	
 	// Unsure as to whether or not a Node's children are deleted as well?
@@ -93,5 +106,17 @@ public class DAG <Value> {
 				nodeList[k] = null;
 			}
 		}		
+	}
+	
+	// Returns Node associated with Value v.
+	public Node retrieveNodefromVal (Value v){
+		Node returnNode = new Node(null); 				
+		for (int i=0; i<nodeList.length; i++){
+			if (nodeList[i].val == v){
+				returnNode = nodeList[i];
+				break;			
+			}	
+		}
+		return returnNode;
 	}
 }
