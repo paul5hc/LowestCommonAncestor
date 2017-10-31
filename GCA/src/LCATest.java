@@ -64,23 +64,17 @@ public class LCATest {
 	}
 
 /*__________________________________________________________________________________________________________________________*/
-	
-	// Problems:
-	// Think nodeList should just be a Value array containing node Values.
-	// Values for 'from' and 'to' must be in Value form, not Node - put() will have to be changed. 
-	// Deleting Nodes will need to actually remove element from the array, rather than replace them with null.
-	// Need to find a way of connecting Values to their corresponding Nodes to use in the put() function.
 	@Test
-	public void testDAGContains(){
-		DAG<Integer> dag = new DAG <Integer>();
+	public void testDirectedAcyclicGraph() {
+		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(3);
+		graph.addEdge(1, 2);
+		graph.addEdge(1, 3);
+		graph.addEdge(3, 1);
+		graph.addEdge(2, 1);
+		graph.addEdge(2, 3);
+		graph.addEdge(3, 2);
+		graph.printGraph();
 		
-		assertEquals("Checking contains() on empty dag.", false, dag.contains(10));
-		
-		dag.put(7, null, null); 		//        (7)
-		dag.put(8, 7, 10);   			//   	  (7) -> (8) -> (10)
-		
-		//assertEquals("Checking DAG contains() a particular Value.", true, dag.contains(7));
-		
+		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(3, 2));
 	}
-
 }

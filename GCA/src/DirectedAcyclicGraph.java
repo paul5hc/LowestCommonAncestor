@@ -1,14 +1,13 @@
 
 // Need to know the number of vertices before implementation.
-// Only takes integer values (greater than 0) for edges. Need to change to Values
-// Think this only implements a directed graph.
+// Only takes integer values (greater than 0) for edges
+// Only implements a directed graph.
 
 import java.util.ArrayList;
 
 public class DirectedAcyclicGraph {
 
 	public static ArrayList<Edge>[] adjList;
-	public static int[] inboundEdges;
 	public int verticesNumber;
 
 	public DirectedAcyclicGraph(int verticesNumber) {
@@ -16,15 +15,16 @@ public class DirectedAcyclicGraph {
 		for (int i = 1; i <= verticesNumber; i++) {
 			adjList[i] = new ArrayList<Edge>();
 		}
-		inboundEdges = new int[verticesNumber + 1];
 		this.verticesNumber = verticesNumber;
 	}
 
 	// Adds an edge between two vertices in the graph.
 	public void addEdge(int v1, int v2) {
+		if(adjList[v1]==null)
+			adjList[v1]=new ArrayList<Edge>();
 		Edge edge = new Edge(v1, v2);
-		if (adjList[v1].contains(edge) == false) {
-			adjList[v1].add(new Edge(v1, v2));
+		if (!containsEdge(v1,v2)) {
+			adjList[v1].add(edge);
 		}
 	}
 
@@ -39,34 +39,31 @@ public class DirectedAcyclicGraph {
 			}
 		}
 	}
+	
+	// Checks if graph contains a certain node or not.
+	public boolean containsEdge(int v1, int v2) {
+		ArrayList<Edge> edgeList;
+		edgeList = adjList[v1];
+		for (Edge edge : edgeList)
+			if (edge.vertex2 == v2) {
+				return true;
+			}
+		return false;
+		
+	}
 
 	// Returns the count of outgoing edges for a given node in the graph.
 	public ArrayList<Edge> getOutEdges(int v1) {
 		return adjList[v1];
 	}
 
-	// Returns the count of incoming edges for each of the nodes in the graph.
-	public int[] getInEdgesCount() {
-		for (int i = 1; i <= verticesNumber; i++) {
-			for (int j = 1; j < adjList.length; j++) {
-				ArrayList<Edge> list = adjList[j];
-				for (Edge e : list) {
-					if (e.vertex2 == i)
-						inboundEdges[i]++;
-				}
-			}
-
-		}
-		return inboundEdges;
-	}
-
 	// Prints the graph to the console.
 	public void printGraph() {
 		ArrayList<Edge> edgeList;
-		for (int i = 1; i < verticesNumber; i++) {
+		for (int i = 1; i <= verticesNumber; i++) {
 			edgeList = adjList[i];
-			for (Edge e : edgeList)
-				System.out.println("u : " + e.vertex1 + " v : " + e.vertex2);
+			for (Edge edge : edgeList)
+				System.out.println("v1 : " + edge.vertex1 + " v2 : " + edge.vertex2);
 		}
 	}
 }
