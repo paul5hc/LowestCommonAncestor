@@ -66,6 +66,7 @@ public class LCATest {
 /*__________________________________________________________________________________________________________________________*/
 	
 	// Problems:
+	// Think nodeList should just be a Value array containing node Values.
 	// Values for 'from' and 'to' must be in Value form, not Node - put() will have to be changed. 
 	// Deleting Nodes will need to actually remove element from the array, rather than replace them with null.
 	// Need to find a way of connecting Values to their corresponding Nodes to use in the put() function.

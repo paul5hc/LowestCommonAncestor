@@ -7,6 +7,8 @@
 import java.util.Arrays;
 
 public class DAG <Value> {
+	private Node[] nodeList;					// Keeps track of the nodes in the list
+	
 	private class Node {
 		private Value val;					// Value stored in Node
 		private Node[] successors;			// Array of Nodes' successors
@@ -15,7 +17,7 @@ public class DAG <Value> {
 			this.val = val;
 		}
 	}
-	private Node[] nodeList = new DAG.Node[0];					// Keeps track of the nodes in the list
+	
 	
 	// Is the DAG empty?
 	public boolean isEmpty() { 
