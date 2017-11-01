@@ -1,9 +1,9 @@
-
+// Currently implements acyclic graph. Need to update tests.
 // Need to know the number of vertices before implementation.
-// Only takes integer values (greater than 0) for edges
-// Only implements a directed graph.
+// Only takes integer values (greater than 0) for edges.
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DirectedAcyclicGraph {
 
@@ -34,6 +34,9 @@ public class DirectedAcyclicGraph {
 			Edge edge = new Edge(v1, v2);
 			if (!containsEdge(v1, v2)) {
 				adjList[v1].add(edge);
+				if (hasCycle()) {
+					removeEdge(edge.vertex1, edge.vertex2);
+				}
 			}
 		}
 	}
@@ -59,6 +62,32 @@ public class DirectedAcyclicGraph {
 				break;
 			}
 		}
+	}
+	
+	// Checks if the graph has a cycle (1).
+	boolean hasCycle() {
+	    List<Integer> visited = new ArrayList<>();
+	    for (int i = 1; i < adjList.length; ++i) {
+	      if (hasCycle(i, visited)) {
+	        return true;
+	      }
+	    }
+	    return false;
+	  }
+	
+	// Checks if the graph has a cycle (2).
+	public boolean hasCycle (int v1, List<Integer> visited) {
+		if (visited.contains(v1)) {
+			return true;
+		}
+		visited.add(v1);
+		for (Edge edge : adjList[v1]) {
+			if (hasCycle(edge.vertex2, visited)) {
+				return true;
+			}
+		}
+		visited.remove(visited.size() -1);
+		return false;
 	}
 
 	// Returns the count of outgoing edges for a given node in the graph.
