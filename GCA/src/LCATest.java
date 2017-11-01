@@ -100,9 +100,11 @@ public class LCATest {
 		graph.addEdge(7, 6);
 		graph.addEdge(6, 5);
 		graph.addEdge(5, 2);
-		graph.printGraph();
+		//graph.printGraph();
 		
 		// If the code is correct, the graph should have no cycles.
 		assertFalse("Checks if graph has any cycles.", graph.hasCycle());
+		
+		graph.lowestCommonAncestor(3, 6);
 	}
 }

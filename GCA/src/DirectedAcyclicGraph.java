@@ -3,6 +3,7 @@
 // Only takes integer values (greater than 0) for edges.
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DirectedAcyclicGraph {
@@ -94,17 +95,21 @@ public class DirectedAcyclicGraph {
 		return false;
 	}
 	
-	public int lowestCommonAncestor(int v1, int v2) {
-		ArrayList<Edge> edgeList1;
-		ArrayList<Edge> edgeList2;
-		edgeList1 = adjList[v1];
-		edgeList2 = adjList[v2];
-		for (Edge edge1 : edgeList1)
-			for (Edge edge2 : edgeList2)
-				if (edge1.vertex2 == edge2.vertex2) {
-					return edge1.vertex2;
-				}
-		return 0;
+	public void lowestCommonAncestor(int v1, int v2) {
+		ArrayList<Integer> ancestors_v1 = null;
+		ArrayList<Integer> ancestors_v2 = null;
+		
+		findPath(ancestors_v1, v1);
+		findPath(ancestors_v2, v2);
+		Arrays.toString(ancestors_v1.toArray());
+		Arrays.toString(ancestors_v1.toArray());
+	}
+	
+	public void findPath(ArrayList<Integer> ancestorList, int vertex) {
+		for (Edge edge : adjList[vertex]) {
+			ancestorList.add(edge.vertex2);
+			findPath(ancestorList, edge.vertex2);
+		}
 	}
 
 	// Prints the graph to the console.
@@ -116,4 +121,5 @@ public class DirectedAcyclicGraph {
 				System.out.println("v1 : " + edge.vertex1 + " v2 : " + edge.vertex2);
 		}
 	}
+	
 }
