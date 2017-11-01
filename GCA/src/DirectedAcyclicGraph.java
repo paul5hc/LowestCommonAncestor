@@ -93,10 +93,18 @@ public class DirectedAcyclicGraph {
 		visited.remove(visited.size() -1);
 		return false;
 	}
-
-	// Returns the count of outgoing edges for a given node in the graph.
-	public ArrayList<Edge> getOutEdges(int v1) {
-		return adjList[v1];
+	
+	public int lowestCommonAncestor(int v1, int v2) {
+		ArrayList<Edge> edgeList1;
+		ArrayList<Edge> edgeList2;
+		edgeList1 = adjList[v1];
+		edgeList2 = adjList[v2];
+		for (Edge edge1 : edgeList1)
+			for (Edge edge2 : edgeList2)
+				if (edge1.vertex2 == edge2.vertex2) {
+					return edge1.vertex2;
+				}
+		return 0;
 	}
 
 	// Prints the graph to the console.

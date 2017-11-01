@@ -92,13 +92,14 @@ public class LCATest {
 	
 	@Test
 	public void testDAG_hasCycle() {
-		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(3);
-		graph.addEdge(1, 2);
-		graph.addEdge(1, 3);
-		graph.addEdge(2, 3);
-		graph.addEdge(3, 1);
+		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(7);
 		graph.addEdge(2, 1);
 		graph.addEdge(3, 2);
+		graph.addEdge(4, 3);
+		graph.addEdge(7, 4);
+		graph.addEdge(7, 6);
+		graph.addEdge(6, 5);
+		graph.addEdge(5, 2);
 		graph.printGraph();
 		
 		// If the code is correct, the graph should have no cycles.
