@@ -17,29 +17,27 @@ public class DirectedAcyclicGraph {
 		}
 		this.verticesNumber = verticesNumber;
 	}
+	
+	// Checks if graph is empty.
+	public boolean isEmpty() {
+		if (verticesNumber == 0) {
+			return true;
+		}
+		return false;
+	}
 
 	// Adds an edge between two vertices in the graph.
 	public void addEdge(int v1, int v2) {
-		if(adjList[v1]==null)
-			adjList[v1]=new ArrayList<Edge>();
-		Edge edge = new Edge(v1, v2);
-		if (!containsEdge(v1,v2)) {
-			adjList[v1].add(edge);
-		}
-	}
-
-	// Removes an edge between two nodes in the graph.
-	public void removeEdge(int v1, int v2) {
-		ArrayList<Edge> edges = adjList[v1];
-		for (int i = 0; i < edges.size(); i++) {
-			Edge e = edges.get(i);
-			if (e.vertex1 == v1 && e.vertex2 == v2) {
-				edges.remove(i);
-				break;
+		if (v1 <= verticesNumber && v2 <= verticesNumber) {
+			if (adjList[v1] == null)
+				adjList[v1] = new ArrayList<Edge>();
+			Edge edge = new Edge(v1, v2);
+			if (!containsEdge(v1, v2)) {
+				adjList[v1].add(edge);
 			}
 		}
 	}
-	
+
 	// Checks if graph contains a certain node or not.
 	public boolean containsEdge(int v1, int v2) {
 		ArrayList<Edge> edgeList;
@@ -49,7 +47,18 @@ public class DirectedAcyclicGraph {
 				return true;
 			}
 		return false;
-		
+	}
+
+	// Removes an edge between two vertices in the graph.
+	public void removeEdge(int v1, int v2) {
+		ArrayList<Edge> edges = adjList[v1];
+		for (int i = 0; i < edges.size(); i++) {
+			Edge e = edges.get(i);
+			if (e.vertex1 == v1 && e.vertex2 == v2) {
+				edges.remove(i);
+				break;
+			}
+		}
 	}
 
 	// Returns the count of outgoing edges for a given node in the graph.

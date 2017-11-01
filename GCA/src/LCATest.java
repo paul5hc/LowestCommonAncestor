@@ -64,8 +64,9 @@ public class LCATest {
 	}
 
 /*__________________________________________________________________________________________________________________________*/
+	// Need to change test values to deal with acyclic graphs.
 	@Test
-	public void testDirectedAcyclicGraph() {
+	public void testDAG_contains() {
 		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(3);
 		graph.addEdge(1, 2);
 		graph.addEdge(1, 3);
@@ -75,6 +76,20 @@ public class LCATest {
 		graph.addEdge(3, 2);
 		graph.printGraph();
 		
-		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(3, 2));
+		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(1, 2));
+		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(3, 1));
+		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(2, 3));
+		
+		graph.removeEdge(2, 3);
+		assertFalse("Checks if graph still contains a removed edge.", graph.containsEdge(2, 3));
+	}
+	
+	@Test
+	public void testDAG_isEmpty() {
+		DirectedAcyclicGraph graph1 = new DirectedAcyclicGraph(0);
+		assertTrue("Checks if given graph is empty", graph1.isEmpty());
+		
+		DirectedAcyclicGraph graph2 = new DirectedAcyclicGraph(1);
+		assertFalse("Checks if given graph is not empty", graph2.isEmpty());
 	}
 }
