@@ -1,9 +1,10 @@
-// Currently implements acyclic graph. Need to update tests.
-// Need to know the number of vertices before implementation.
-// Only takes integer values (greater than 0) for edges.
+/* Code Limitations:
+ * 1. Need to know the number of vertices in graph before implementation.
+ * 2. Vertices identified by Integer values only.
+ * 3. Code could be improved to deal with vertex 7 (in tests) better.
+ */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DirectedAcyclicGraph {
@@ -18,7 +19,7 @@ public class DirectedAcyclicGraph {
 		}
 		this.verticesNumber = verticesNumber;
 	}
-	
+
 	// Checks if graph is empty.
 	public boolean isEmpty() {
 		if (verticesNumber == 0) {
@@ -42,7 +43,7 @@ public class DirectedAcyclicGraph {
 		}
 	}
 
-	// Checks if graph contains a certain node or not.
+	// Checks if graph contains a certain vertex or not.
 	public boolean containsEdge(int v1, int v2) {
 		if (v1 <= verticesNumber && v2 <= verticesNumber) {
 			ArrayList<Edge> edgeList;
@@ -68,20 +69,20 @@ public class DirectedAcyclicGraph {
 			}
 		}
 	}
-	
+
 	// Checks if the graph has a cycle (1).
 	boolean hasCycle() {
-	    List<Integer> visited = new ArrayList<>();
-	    for (int i = 1; i < adjList.length; ++i) {
-	      if (hasCycle(i, visited)) {
-	        return true;
-	      }
-	    }
-	    return false;
-	  }
-	
+		List<Integer> visited = new ArrayList<>();
+		for (int i = 1; i < adjList.length; ++i) {
+			if (hasCycle(i, visited)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// Checks if the graph has a cycle (2).
-	public boolean hasCycle (int v1, List<Integer> visited) {
+	public boolean hasCycle(int v1, List<Integer> visited) {
 		if (visited.contains(v1)) {
 			return true;
 		}
@@ -91,30 +92,30 @@ public class DirectedAcyclicGraph {
 				return true;
 			}
 		}
-		visited.remove(visited.size() -1);
+		visited.remove(visited.size() - 1);
 		return false;
 	}
-	
-	// Currently doesn't work for nodes with more than one edge coming out of them.
-	public void lowestCommonAncestor(int v1, int v2) {
+
+	// Returns lowest common ancestor of two vertices.
+	public int lowestCommonAncestor(int v1, int v2) {
 		ArrayList<Integer> ancestors_v1 = new ArrayList<Integer>();
 		ArrayList<Integer> ancestors_v2 = new ArrayList<Integer>();
 		ancestors_v1.add(v1);
 		ancestors_v2.add(v2);
-		
+
 		findPath(ancestors_v1, v1);
 		findPath(ancestors_v2, v2);
-		System.out.println("ancestors_v1: "+ancestors_v1);
-		System.out.println("ancestors_v2: "+ancestors_v2);
-		
+		System.out.println("Path from Vertex 1: " + ancestors_v1);
+		System.out.println("Path from Vertex 2: " + ancestors_v2);
+
 		for (int i : ancestors_v1)
 			if (ancestors_v2.contains(i)) {
 				System.out.println("Lowest Common Ancestor: " + i);
-				break;
+				return i;
 			}
-		//return 0;
+		return 0;
 	}
-	
+
 	public void findPath(ArrayList<Integer> ancestorList, int vertex) {
 		ArrayList<Edge> edgeList;
 		edgeList = adjList[vertex];
@@ -133,5 +134,5 @@ public class DirectedAcyclicGraph {
 				System.out.println("v1 : " + edge.vertex1 + " v2 : " + edge.vertex2);
 		}
 	}
-	
+
 }
