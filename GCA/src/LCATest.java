@@ -64,21 +64,18 @@ public class LCATest {
 	}
 
 /*__________________________________________________________________________________________________________________________*/
-	// Need to change test values to deal with acyclic graphs.
 	@Test
 	public void testDAG_contains() {
 		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(3);
 		graph.addEdge(1, 2);
 		graph.addEdge(1, 3);
-		graph.addEdge(3, 1);
-		graph.addEdge(2, 1);
 		graph.addEdge(2, 3);
-		graph.addEdge(3, 2);
-		graph.printGraph();
+		//graph.printGraph();
 		
 		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(1, 2));
-		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(3, 1));
+		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(1, 3));
 		assertTrue("Checks if graph contains certain directed edge.", graph.containsEdge(2, 3));
+		assertFalse("Checks if graph contains certain directed edge.", graph.containsEdge(5, 6));
 		
 		graph.removeEdge(2, 3);
 		assertFalse("Checks if graph still contains a removed edge.", graph.containsEdge(2, 3));
@@ -91,5 +88,20 @@ public class LCATest {
 		
 		DirectedAcyclicGraph graph2 = new DirectedAcyclicGraph(1);
 		assertFalse("Checks if given graph is not empty", graph2.isEmpty());
+	}
+	
+	@Test
+	public void testDAG_hasCycle() {
+		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(3);
+		graph.addEdge(1, 2);
+		graph.addEdge(1, 3);
+		graph.addEdge(2, 3);
+		graph.addEdge(3, 1);
+		graph.addEdge(2, 1);
+		graph.addEdge(3, 2);
+		graph.printGraph();
+		
+		// If the code is correct, the graph should have no cycles.
+		assertFalse("Checks if graph has any cycles.", graph.hasCycle());
 	}
 }

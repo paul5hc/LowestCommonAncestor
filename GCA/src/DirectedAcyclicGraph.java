@@ -43,23 +43,27 @@ public class DirectedAcyclicGraph {
 
 	// Checks if graph contains a certain node or not.
 	public boolean containsEdge(int v1, int v2) {
-		ArrayList<Edge> edgeList;
-		edgeList = adjList[v1];
-		for (Edge edge : edgeList)
-			if (edge.vertex2 == v2) {
-				return true;
-			}
+		if (v1 <= verticesNumber && v2 <= verticesNumber) {
+			ArrayList<Edge> edgeList;
+			edgeList = adjList[v1];
+			for (Edge edge : edgeList)
+				if (edge.vertex2 == v2) {
+					return true;
+				}
+		}
 		return false;
 	}
 
 	// Removes an edge between two vertices in the graph.
 	public void removeEdge(int v1, int v2) {
-		ArrayList<Edge> edges = adjList[v1];
-		for (int i = 0; i < edges.size(); i++) {
-			Edge e = edges.get(i);
-			if (e.vertex1 == v1 && e.vertex2 == v2) {
-				edges.remove(i);
-				break;
+		if (v1 <= verticesNumber && v2 <= verticesNumber) {
+			ArrayList<Edge> edges = adjList[v1];
+			for (int i = 0; i < edges.size(); i++) {
+				Edge e = edges.get(i);
+				if (e.vertex1 == v1 && e.vertex2 == v2) {
+					edges.remove(i);
+					break;
+				}
 			}
 		}
 	}
