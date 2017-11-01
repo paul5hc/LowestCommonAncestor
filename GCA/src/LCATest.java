@@ -105,6 +105,6 @@ public class LCATest {
 		// If the code is correct, the graph should have no cycles.
 		assertFalse("Checks if graph has any cycles.", graph.hasCycle());
 		
-		graph.lowestCommonAncestor(3, 6);
+		graph.lowestCommonAncestor(1, 2);
 	}
 }

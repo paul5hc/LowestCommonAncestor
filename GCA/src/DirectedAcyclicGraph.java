@@ -95,18 +95,30 @@ public class DirectedAcyclicGraph {
 		return false;
 	}
 	
+	// Currently doesn't work for nodes with more than one edge coming out of them.
 	public void lowestCommonAncestor(int v1, int v2) {
-		ArrayList<Integer> ancestors_v1 = null;
-		ArrayList<Integer> ancestors_v2 = null;
+		ArrayList<Integer> ancestors_v1 = new ArrayList<Integer>();
+		ArrayList<Integer> ancestors_v2 = new ArrayList<Integer>();
+		ancestors_v1.add(v1);
+		ancestors_v2.add(v2);
 		
 		findPath(ancestors_v1, v1);
 		findPath(ancestors_v2, v2);
-		Arrays.toString(ancestors_v1.toArray());
-		Arrays.toString(ancestors_v1.toArray());
+		System.out.println("ancestors_v1: "+ancestors_v1);
+		System.out.println("ancestors_v2: "+ancestors_v2);
+		
+		for (int i : ancestors_v1)
+			if (ancestors_v2.contains(i)) {
+				System.out.println("Lowest Common Ancestor: " + i);
+				break;
+			}
+		//return 0;
 	}
 	
 	public void findPath(ArrayList<Integer> ancestorList, int vertex) {
-		for (Edge edge : adjList[vertex]) {
+		ArrayList<Edge> edgeList;
+		edgeList = adjList[vertex];
+		for (Edge edge : edgeList) {
 			ancestorList.add(edge.vertex2);
 			findPath(ancestorList, edge.vertex2);
 		}
